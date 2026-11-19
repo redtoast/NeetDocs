@@ -5,6 +5,7 @@ Source: `_G.io`
 ## Summary
 
 Allows computers to interface with attached peripherals, and network with other computers.
+See [system events](/apis/events/system-events) for peripheral detection events.
 
 ## Functions
 
@@ -55,4 +56,4 @@ Called the indexed function of the peripheral with the given uuid, supplying the
 Broadcasts the given arguments directly to all other computers attached with network cable.
 No extra information is provided, uni-cast networking and computer identification is the responsibility of individual computers.
 
-See [network-events](/apis/events/network-events) for how broadcasts are received.
+See [network events](/apis/events/network-events) for how broadcasts are received.
