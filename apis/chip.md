@@ -10,7 +10,7 @@ It can also provide mod and computer identification.
 ## Functions
 
 ### getUUID()
-gets a unique identifier inherent to the computer's chassis.
+Gets a unique identifier inherent to the computer's chassis.
 An example of a UUID would be `"e58ed763-928c-4155-bee9-fdbaaadc15f3"`.
 
 `returns: String`
@@ -59,3 +59,8 @@ Night: 13000
 Midnight: 18000
 ```
 `returns: Integer`
+
+### isViewed()
+Checks if a user is viewing the computer.
+
+`returns: Boolean`
