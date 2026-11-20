@@ -22,7 +22,7 @@ Gets the type of the peripheral, an example of a peripherals type would be `"nee
 ### getTag(uuid)
 Gets the assigned tag of a peripheral, or nil if it has none.
 
-`returns: String | nil`
+`returns: String | Nil`
 
 ### isNative(uuid)
 Checks to see if the peripheral uses the native N.E.E.T. peripheral system or has been adapted from another mod, usually CC:T.
@@ -45,7 +45,7 @@ Returns the UUIDs of all attached peripherals of the given type.
 ### wrapPeripheral(uuid)
 Returns a table of all the peripherals functions indexed by function name.
 
-`returns: {String : function}`
+`returns: {String : Function}`
 
 ### callFunction(uuid, function, arguments...)
 Called the indexed function of the peripheral with the given uuid, supplying the provided arguments and returning the function calls result.
