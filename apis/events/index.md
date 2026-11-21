@@ -14,7 +14,7 @@ The categories are as follows:
 - Peripheral: Events from, or about peripherals.
 - Compatibility: Events generated from CC:Tweaked peripherals, or hypothetically other foreign event sources.
 
-Note, the event api is very centralized, and multiple programs completely for access to the event queue will almost certainly lead to events going missing or being taken by the wrong process, if your making a complex system its most likely worth your time to devise a process dedicated to distributing events.
+Note, the event api is very centralized, and multiple programs completely for access to the event queue will almost certainly lead to events going missing or being taken by the wrong process, if you're making a complex system its most likely worth your time to devise a process dedicated to distributing events.
 
 Events are also represented by a list of primitive values, always starting with an identifying string, these docs will represent an event [String, Any...] as just an 'Event.'
 
@@ -25,11 +25,13 @@ Manually appends a new event to the chosen queue, can be used just for normal ev
 
 ### getQueue(Category, filter = nil)
 Retrieves the entire contents on a queue, or all events with the given filter. Events pulled by this function are removed from the queue.
+The filter will match the identifying string of events.
 
 `returns: Event[]`
 
 ### getFirst(Category, filter = nil)
 Gets the first event from the given queue that matches the filter, if there is no filter it will just pull the first event.
+The filter will match the identifying string of events.
 
 ```
 while true do
