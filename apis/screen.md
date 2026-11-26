@@ -13,7 +13,7 @@ If you're a beginner, using a library might be worth your time.
 [Colored screen peripherals](/peripherals/color-display) have an identical api.
 Screen also supports alpha (or A) values, with 0 being fully transparent and 255 being fully solid.
 
-If your using the screen api it might be wise to also view the [user events](/apis/events/user-events) page or the [io](/apis/IO).isViewed() function.
+If your using the screen api it might be wise to also view the [user events](/apis/events/user-events) page or the [IO](/apis/IO).isViewed() function.
 
 ## Functions
 

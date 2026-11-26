@@ -55,10 +55,17 @@ Mark the given partition as read only, after its contents won't be editable.
 
 `returns: Boolean`
 
-### open(path, mode='r', flags | disk = 0, disk = 0)
+### open(path, mode='r', disk = 0)
 Opens a [file header](/apis/files/headers) under the given file mode.
 
-The third argument selects between two behaviours. Passing a number opens on that disk, exactly as before. Passing a table treats it as open flags and lets you pass the disk as a fourth argument:
+Nonexistent files or invalid paths will still open file headers unless `path` is set, so check the file exists before opening a header.
+
+`returns: {String : Function}`
+
+### open(path, mode='r', flags, disk = 0)
+Opens a [file header](/apis/files/headers) under the given file mode.
+
+The flags argument can select additional criteria for the open operation:
 
 ```
 {
@@ -69,7 +76,7 @@ The third argument selects between two behaviours. Passing a number opens on tha
 }
 ```
 
-`exclusive` is the useful one in practice: without it, `w` silently truncates whatever is already there, so two programs can both "acquire" the same lock file. With it, the second open fails instead.
+Tip: `exclusive` allows you to cancel am operation if a file already exists, while `w` silently truncates whatever is already there, so two programs can both "acquire" the same lock file. Using exclusive however will make the second operation fail instead.
 
 Nonexistent files or invalid paths will still open file headers unless `path` is set, so check the file exists before opening a header.
 
