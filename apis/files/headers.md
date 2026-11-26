@@ -43,6 +43,14 @@ A neat trick is because by default seek parameters move zero units away from cur
 
 `returns: Integer`
 
+### size()
+Gets the current length of the file in bytes, without moving the cursor. Works on headers opened read-only or for appending, where seeking to the end and back would move the cursor.
+
+`returns: Integer`
+
+### truncate(size)
+Resizes the file to `size` bytes and flushes it. Growing the file fills the new space with zero bytes. Fails with `"Disk full"` if the growth would exceed the disk's remaining capacity.
+
 ### flush()
 Saves the file as it exists in the header.
 
