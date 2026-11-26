@@ -29,6 +29,16 @@ Checks to see if the peripheral uses the native N.E.E.T. peripheral system or ha
 
 `returns: Boolean`
 
+### isCompatibility(uuid)
+The inverse of `isNative`, returns true if the peripheral has been adapted from another mod's peripheral system. Use this when the branch reads better as "is a compatibility wrapper" than "is not native".
+
+`returns: Boolean`
+
+### isViewed()
+Checks if a user is currently viewing the computer. Lets background programs skip rendering or other work nobody is looking at.
+
+`returns: Boolean`
+
 ### setTag(uuid, tag = nil)
 Sets the tag of a peripheral, which is saved to the peripheral's memory.
 

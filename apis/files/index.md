@@ -10,6 +10,12 @@ Disk 0 is always the home disk, disks loaded after will be given simple ids that
 The files api does not read or write to files directly, instead it opens [file headers](/apis/files/headers.md) that preform these interactions.
 File paths in need are formatted <partition>:/<filepath>, disks with one partition don't require specification.
 
+## Disk capacity
+
+Every disk has a fixed size, 10 MiB unless the disk's `build.json` sets a different `capacity` in bytes. Writes that would grow a file past the remaining space fail with `"Disk full"` rather than filling the machine the game runs on.
+
+The size is per disk, not per partition: partitions share the disk's capacity, and `getCapacity`/`getFreeSpace` report the whole disk even when given a partition name.
+
 ## Functions
 
 ### getPartitions(disk = 0)
@@ -49,12 +55,55 @@ Mark the given partition as read only, after its contents won't be editable.
 
 `returns: Boolean`
 
-### open(path, mode='r', disk = 0)
+### open(path, mode='r', flags | disk = 0, disk = 0)
 Opens a [file header](/apis/files/headers) under the given file mode.
 
-Nonexistent files or invalid paths will still open file headers, so check the file exists before opening a header.
+The third argument selects between two behaviours. Passing a number opens on that disk, exactly as before. Passing a table treats it as open flags and lets you pass the disk as a fourth argument:
+
+```
+{
+    "exclusive": Boolean,   -- fail if the path already exists, creating it otherwise
+    "follow": Boolean,      -- false rejects symlinks with "Operation not supported"
+    "directory": Boolean,   -- require a directory, which can never be opened as a header
+    "path": Boolean         -- require the path to already exist
+}
+```
+
+`exclusive` is the useful one in practice: without it, `w` silently truncates whatever is already there, so two programs can both "acquire" the same lock file. With it, the second open fails instead.
+
+Nonexistent files or invalid paths will still open file headers unless `path` is set, so check the file exists before opening a header.
 
 `returns: {String : Function}`
+
+### fsSize(path, disk = 0)
+Gets the total and free size of the disk holding the path, in bytes. This reports the disk's own capacity (see [disk capacity](#disk-capacity)), not the free space of the machine the game runs on.
+
+```
+returns {
+    "total": Integer,
+    "free": Integer
+}
+```
+
+### getCapacity(disk = 0, partition = nil)
+Gets the total size of the disk in bytes.
+
+When a partition is given it must name a real partition on the disk, but the size returned is always the whole disk's.
+
+`returns: Integer, String | Nil`
+
+### getFreeSpace(disk = 0, partition = nil)
+Gets the unused size of the disk in bytes.
+
+As with `getCapacity`, the partition argument is validated but the figure covers the whole disk.
+
+`returns: Integer, String | Nil`
+
+### truncate(path, size, disk = 0)
+Resizes the file to `size` bytes without opening a header. Growing the file fills the new space with zero bytes.
+Raises an error if the new size would exceed the disk's remaining capacity.
+
+`returns: Boolean`
 
 ### getChildren(path, disk = 0)
 Assuming the path is a directory, will list all of its subdirectories.

@@ -16,7 +16,7 @@ An example of a UUID would be `"e58ed763-928c-4155-bee9-fdbaaadc15f3"`.
 `returns: String`
 
 ### sleep(milli)
-Stops code execution for the given time, it's recommended to call this function when the computer is idle.
+Blocks the computer for the given number of milliseconds before returning. The sleep ends early if the computer is shut down or crashes while waiting.
 
 ### getMachine()
 Gets a textual description of the computer.
@@ -49,6 +49,21 @@ Gets the amount of seconds the computer has been executing code, with 3 decimal 
 Gets the current time in unix time as seconds, with 3 decimal points of precision.
 
 `returns: Decimal`
+
+### getMonotonic()
+Gets monotonic time in seconds. Unlike `getUnixTime`, this never goes backwards and is unaffected by wall clock adjustments, so it's the correct clock for measuring elapsed time or building deadlines.
+
+`returns: Decimal`
+
+### getMemory()
+Gets memory usage for the computer's runtime.
+
+```
+returns {
+    "used": Integer,
+    "total": Integer
+}
+```
 
 ### getLunarTime()
 Gets the in-game lunar time, as is functions with the /time command.
