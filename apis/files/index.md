@@ -12,7 +12,7 @@ File paths in need are formatted <partition>:/<filepath>, disks with one partiti
 
 ## Disk capacity
 
-Every disk has a fixed size, 10 MiB unless the disk's `build.json` sets a different `capacity` in bytes. Writes that would grow a file past the remaining space fail with `"Disk full"` rather than filling the machine the game runs on.
+Every disk has a fixed size, 10 MiB by default, set by the server's `disk-capacity` config option and shared by all disks on the server. Writes that would grow a file past the remaining space fail with `"Disk full"` rather than filling the machine the game runs on.
 
 The size is per disk, not per partition: partitions share the disk's capacity, and `getCapacity`/`getFreeSpace` report the whole disk even when given a partition name.
 
