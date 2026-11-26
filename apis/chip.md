@@ -74,8 +74,3 @@ Night: 13000
 Midnight: 18000
 ```
 `returns: Integer`
-
-### isViewed()
-Checks if a user is viewing the computer.
-
-`returns: Boolean`
